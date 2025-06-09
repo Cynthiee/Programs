@@ -1,7 +1,6 @@
 import os
 import json
 import requests
-from ijson import items
 
 def extract_images(json_file):
     """
@@ -10,9 +9,10 @@ def extract_images(json_file):
     Args:
         json_file (str): Path to the JSON file.
     """
-    with open(json_file, 'rb') as f:
-        parser = items(f, 'item')
-        for entry in parser:
+    with open(json_file, 'r') as f:
+        data = json.load(f)
+
+        for entry in data:
             process_entry(entry)
 
 def process_entry(entry):
@@ -51,5 +51,5 @@ def download_image(url, filename):
         print(f"Error downloading image from {url}: {e}")
 
 if __name__ == "__main__":
-    json_file = "imgall.json"  # Replace with your actual JSON file path
+    json_file = "new.json"  # Replace with your actual JSON file path
     extract_images(json_file)
